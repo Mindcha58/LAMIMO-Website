@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAMIMO</title>
+    <link rel="stylesheet" href="T-shirts details.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-and-menu">
+            <h1>LAMIMO</h1>
+            <div class="tablist" role="tablist">
+                <!-- แท็บ WOMEN -->
+                <a href="Home.html" class="tab" id="women-tab" role="tab" aria-selected="false"
+                    aria-controls="women-content">
+                    WOMEN
+                </a>
+                <!-- แท็บ MEN -->
+                <a href="men.html" class="tab" id="men-tab" role="tab" aria-selected="true" aria-controls="men-content">
+                    MEN
+                </a>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <img src="image/search.png" alt="Search Icon" width="20">
+        </div>
+        <div class="menu icons">
+            <a href="account.html"><img src="image/icon/54616_25461.png" alt="Account Icon" width="35"></a>
+            <a href="Wish_list.html"><img src="image/icon/4049_13522.png" alt="Heart Icon" width="35"></a>
+            <a href="Cart.html"><img src="image/icon/4049_13611.png" alt="Cart Icon" width="35"></a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main>
+        <!-- WOMEN Content -->
+        <div id="men-content" class="Gender" role="tabpanel" aria-labelledby="men-tab">
+            <!-- Navigation Bar -->
+            <div class="navbar">
+                <a href="Men newin.html">New in</a>
+                <div class="dropdown">
+                    <a href="#">Clothing</a>
+                    <div class="dropdown-content">
+                        <a href="Men T-shirts.html">T-Shirts</a>
+                        <a href="Men Sweatshirt.html">Sweatshirt </a>
+                        <a href="Men Polo.html">Polo</a>
+                    </div>
+                </div>
+    
+                <div class="dropdown">
+                    <a href="#">Shoes</a>
+                    <div class="dropdown-content">
+                        <a href="Men sandals.html">Sandals</a>
+                        <a href="Men canvas.html">Canvas</a>
+                    </div>
+                </div>
+    
+                <div class="dropdown">
+                    <a href="#">Accessories</a>
+                    <div class="dropdown-content">
+                        <a href="Men Clock.html">Watch</a>
+                        <a href="Men earing.html">Earrings</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <section class="main-content">
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb">
+                    <a href="men.html">Home</a>
+                    <span> &gt; </span>
+                    <a href="#">MEN</a>
+                    <span> &gt; </span>
+                    <a href="#">Shoes</a>
+                    <span> &gt; </span>
+                    <a href="Men canvas.html">Canvas</a>
+                </nav>
+
+                <!-- Product Details -->
+                <div class="product-images">
+                    <div class="thumbnail-images">
+                        <img src="image/MEN/T-shirts 1/Shoes 3/Samba_OG_JR0612_01_00_standard.avif" alt="Thumbnail 1"
+                            onclick="changeMainImage(this)">
+                        <img src="image/MEN/T-shirts 1/Shoes 3/Samba_OG_JR0612_02_standard.avif" alt="Thumbnail 2"
+                            onclick="changeMainImage(this)">
+                        <img src="image/MEN/T-shirts 1/Shoes 3/Samba_OG_JR0612_03_standard_hover.avif" alt="Thumbnail 3"
+                            onclick="changeMainImage(this)">
+                        <img src="image/MEN/T-shirts 1/Shoes 3/Samba_OG_JR0612_04_standard.avif" alt="Thumbnail 4"
+                            onclick="changeMainImage(this)">
+                    </div>
+
+                    <!-- Main Image -->
+                    <div class="main-image">
+                        <img id="mainImage" src="image/MEN/T-shirts 1/Shoes 3/Samba_OG_JR0612_01_00_standard.avif"
+                            alt="Main Product Image">
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="product-info">
+                        <div class="Name">
+                            <h2>Samba OG</h2>
+                            <p>700฿</p>
+                        </div>
+                        <div class="details">
+                            <h3>Details</h3>
+                            <p>
+                                รองเท้า Samba ถือกำเนิดขึ้นบนสนามฟุตบอล ก่อนก้าวสู่ตำแหน่งไอคอนเหนือกาลเวลาของสไตล์สตรีท
+                                รูปทรงรองเท้าคู่นี้ยังคงเอกลักษณ์ตามแบบต้นฉบับเอาไว้
+                                มาพร้อมอัปเปอร์หนังสัมผัสนุ่มสุดคลาสสิก โอเวอร์เลย์หนังซูเอด และพื้นยาง
+                                ซึ่งทําให้รองเท้าคู่นี้กลายเป็นไอเทมสำหรับในและนอกสนามที่ทุกคนต้องมีติดตู้
+                            </p>
+                        </div>
+                        <div class="SQ">
+                            <!-- Size Selection -->
+                            <div class="size-selection">
+                                <p>Size</p>
+                                <ul class="size-options" role="radiogroup" aria-label="Size">
+                                    <li class="size-option" role="radio" aria-checked="false" tabindex="0"
+                                        data-value="40"><span>40</span></li>
+                                    <li class="size-option" role="radio" aria-checked="false" tabindex="0"
+                                        data-value="41"><span>41</span></li>
+                                    <li class="size-option" role="radio" aria-checked="false" tabindex="0"
+                                        data-value="42"><span>42</span></li>
+                                    <li class="size-option" role="radio" aria-checked="false" tabindex="0"
+                                        data-value="43"><span>43</span></li>
+                                </ul>
+                            </div>
+                            <div class="quantity-selector">
+                                <p>Quantity</p>
+                                <div class="controls">
+                                    <button class="btn-decrease" onclick="decreaseQuantity()">-</button>
+                                    <input type="text" id="quantity" value="1" readonly>
+                                    <button class="btn-increase" onclick="increaseQuantity()">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="WA">
+                            <div class="wish">
+                                <button class="wish-button">ADD TO WISH-LIST</button>
+                            </div>
+
+                            <div class="cart">
+                                <button class="cart-button">ADD TO CART</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-box">
+                    <div class="rating-number">4.8</div>
+                    <div class="stars">★★★★★</div>
+                    <div class="total-ratings">120 Ratings</div>
+                </div>
+
+                <div class="individual-reviews">
+                    <div class="review-item">
+                        <h4>เจนนี่ ปาหนัน</h4>
+                        <div class="stars">
+                            ★★★★★
+                        </div>
+                        <p>สินค้าดีมาก คุณภาพยอดเยี่ยม!</p>
+                    </div>
+                    <div class="review-item">
+                        <h4>ณัชชา วิบูลย์</h4>
+                        <div class="stars">
+                            ★★★★☆
+                        </div>
+                        <p>สินค้าดีแต่ส่งช้ากว่าเวลาที่คาดไว้</p>
+                    </div>
+                    <div class="review-item">
+                        <h4>ธนาภา ตราลักษณ์</h4>
+                        <div class="stars">
+                            ★★★☆☆
+                        </div>
+                        <p>สินค้าคุณภาพดีมาก แต่จัดส่งช้าไปหน่อย</p>
+                    </div>
+                </div>
+
+            </section>
+            <div class="buy">
+                <p>You may also like to buy</p>
+                <div class="Tree">
+                    <div class="product">
+                        <a href="Men T-shirts5details.html">
+                            <img
+                                src="image/MEN/T-shirts 1/T-shirts 5/ssvnth.zone-1727172793-SMSTEEZ0400610003-feature.jpg">
+                            <p>Frenchie Eazy Tee Shirt</p>
+                            <p class="price">400฿</p>
+                        </a>
+                    </div>
+                    <div class="product">
+                        <a href="Men Polo2details.html">
+                            <img
+                                src="image/MEN/T-shirts 1/Polo 2/ssvnth.zone-1730957753-SMSPOSS0395410002-feature.jpg">
+                            <p>Frenchie Polo Shirt </p>
+                            <p class="price">545฿</p>
+                        </a>
+                    </div>
+                    <div class="product">
+                        <a href="Men Sweatshirt1details.html"> <!-- ลิงก์ไปยังหน้าใหม่ -->
+                            <img src="image/MEN/T-shirts 1/Sweatshirt 1/ssvnth.zone-1731315813-SMRKTLS0399219002-feature.jpg">
+                            <p>Frenchie Sweatshirt </p>
+                            <p class="price">545฿</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <div>
+                    <h4>ABOUT US</h4>
+                    <a href="#">Store Locations</a>
+                </div>
+                <div>
+                    <h4>CUSTOMER SERVICE</h4>
+                    <a href="Contactus.html">Contact Us</a>
+                </div>
+                <div>
+                    <h4>FOLLOW US</h4>
+                    <div class="social-icons">
+                        <a href="#"><img src="image/icon/Screenshot 2024-10-17 220700-Photoroom.png" alt="Facebook"></a>
+                        <a href="#"><img src="image/icon/instagram.png" alt="Instagram"></a>
+                        <a href="#"><img src="image/icon/line.png" alt="Line"></a>
+                        <a href="#"><img src="image/icon/twitter.png" alt="X"></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-policies">
+                <p>&copy; 2024 LAMIMO. All rights reserved</p>
+                <p>
+                    <a href="#">Cookies Policy</a> |
+                    <a href="#">Privacy Policy</a> |
+                    <a href="#">Terms and Conditions</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="T-shirts details.js"></script>
+</body>
+
+</html>

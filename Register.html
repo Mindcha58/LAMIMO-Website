@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <metas charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LAMIMO</title>
+        <link rel="stylesheet" href="Register.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-and-menu">
+            <h1>LAMIMO</h1>
+            <div class="tablist" role="tablist">
+                <!-- แท็บ WOMEN -->
+                <a href="Home.html" class="tab" id="women-tab" role="tab" aria-selected="false"
+                    aria-controls="women-content">
+                    WOMEN
+                </a>
+                <!-- แท็บ MEN -->
+                <a href="men.html" class="tab" id="men-tab" role="tab" aria-selected="true"
+                    aria-controls="men-content">
+                    MEN
+                </a>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <img src="image/search.png" alt="Search Icon" width="20">
+        </div>
+        <div class="menu icons">
+            <a href="account.html"><img src="image/icon/54616_25461.png" alt="Account Icon" width="35"></a>
+            <a href="Wish_list.html"><img src="image/icon/4049_13522.png" alt="Heart Icon" width="35"></a>
+            <a href="Cart.html"><img src="image/icon/4049_13611.png" alt="Cart Icon" width="35"></a>
+        </div>
+    </header>
+
+    <div class="register-container">
+        <h2>Register</h2>
+        <form class="register-form" action="process.php" method="post">
+
+            <!-- First Name -->
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+
+            <!-- Last Name -->
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+
+            <!-- Phone Number -->
+            <label for="phonenumber">Phone Number</label>
+            <input type="text" id="phonenumber" name="phonenumber" placeholder="Enter your phone number" required>
+
+            <!-- Email -->
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+            <!-- Password -->
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+                    <img src="image\4049_13492.png" alt="Show Password">
+                </button>
+            </div>
+
+            <!-- Gender -->
+            <div class="gender-container">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <!-- Date of Birth -->
+            <label for="birth-date">Date of birth</label>
+            <div class="birth-date">
+                <!-- Day -->
+                <select id="day" name="day" required>
+                    <option value="" disabled selected>Day</option>
+                </select>
+
+                <!-- Month -->
+                <select id="month" name="month" required>
+                    <option value="" disabled selected>Month</option>
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+
+                <!-- Year -->
+                <select id="year" name="year" required>
+                    <option value="" disabled selected>Year</option>
+                </select>
+            </div>
+
+            <!-- Join Button -->
+            <a href="Home.html" class="join-button">JOIN LAMIMO</a>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <div>
+                    <h4>ABOUT US</h4>
+                    <a href="#">Store Locations</a>
+                </div>
+                <div>
+                    <h4>CUSTOMER SERVICE</h4>
+                    <a href="Contactus.html">Contact Us</a>
+                </div>
+                <div>
+                    <h4>FOLLOW US</h4>
+                    <div class="social-icons">
+                        <a href="#"><img src="image/icon/Screenshot 2024-10-17 220700-Photoroom.png" alt="Facebook"></a>
+                        <a href="#"><img src="image/icon/instagram.png" alt="Instagram"></a>
+                        <a href="#"><img src="image/icon/line.png" alt="Line"></a>
+                        <a href="#"><img src="image/icon/twitter.png" alt="X"></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="footer-policies">
+                <p>&copy; 2024 LAMIMO. All rights reserved</p>
+                <p>
+                    <a href="#">Cookies Policy</a> |
+                    <a href="#">Privacy Policy</a> |
+                    <a href="#">Terms and Conditions</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="Register.js"></script>
+</body>

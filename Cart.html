@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAMIMO</title>
+    <link rel="stylesheet" href="Cart.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo-and-menu">
+            <h1>LAMIMO</h1>
+            <div class="tablist" role="tablist">
+                <!-- แท็บ WOMEN -->
+                <a href="Home.html" class="tab" id="women-tab" role="tab" aria-selected="true"
+                    aria-controls="women-content">
+                    WOMEN
+                </a>
+                <!-- แท็บ MEN -->
+                <a href="men.html" class="tab" id="men-tab" role="tab" aria-selected="false"
+                    aria-controls="men-content">
+                    MEN
+                </a>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <img src="image/search.png" alt="Search Icon" width="20">
+        </div>
+        <div class="menu icons">
+            <a href="account.html"><img src="image/icon/54616_25461.png" alt="Account Icon" width="35"></a>
+            <a href="Wish_list.html"><img src="image/icon/4049_13522.png" alt="Heart Icon" width="35"></a>
+            <a href="Cart.html"><img src="image/icon/4049_13611.png" alt="Cart Icon" width="35"></a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="cart-section">
+            <h2 class="cart-title">Your Cart</h2>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="product-checkbox"></td>
+                        <td>
+                            <div class="product-info">
+                                <img src="image/product1.png" alt="Product 1" class="product-image">
+                                <div class="product-details">
+                                    <p>Crop Tee Shirt with Head Pin Design</p>
+                                    <p>Size: M</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="unit-price">578.50</td>
+                        <td>
+                            <div class="quantity-control">
+                                <button class="quantity-btn decrement">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1">
+                                <button class="quantity-btn increment">+</button>
+                            </div>
+                        </td>
+                        <td class="row-total">578.50</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" class="product-checkbox"></td>
+                        <td>
+                            <div class="product-info">
+                                <img src="image/product2.png" alt="Product 2" class="product-image">
+                                <div class="product-details">
+                                    <p>Floral Print Blouse</p>
+                                    <p>Size: S</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="unit-price">395.00</td>
+                        <td>
+                            <div class="quantity-control">
+                                <button class="quantity-btn decrement">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1">
+                                <button class="quantity-btn increment">+</button>
+                            </div>
+                        </td>
+                        <td class="row-total">395.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="summary-section">
+            <h3 class="summary-title">Order Summary</h3>
+            <div class="summary-details">
+                <div class="summary-item">
+                    <span>Subtotal</span>
+                    <span id="subtotal">0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Shipping</span>
+                    <span>Add Info</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total</span>
+                    <span id="total">0.00</span>
+                </div>
+            </div>
+            <a href="Chekpoin.html" class="checkout-btn">Proceed to Checkout</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Footer Links -->
+            <div class="footer-links">
+                <div>
+                    <h4>ABOUT US</h4>
+                    <a href="#">Store Locations</a>
+                </div>
+                <div>
+                    <h4>CUSTOMER SERVICE</h4>
+                    <a href="Contactus.html">Contact Us</a>
+                </div>
+                <div>
+                    <h4>FOLLOW US</h4>
+                    <div class="social-icons">
+                        <a href="#"><img src="image/icon/Screenshot 2024-10-17 220700-Photoroom.png" alt="Facebook"></a>
+                        <a href="#"><img src="image/icon/instagram.png" alt="Instagram"></a>
+                        <a href="#"><img src="image/icon/line.png" alt="Line"></a>
+                        <a href="#"><img src="image/icon/twitter.png" alt="X"></a>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Footer Policies -->
+            <div class="footer-policies">
+                <p>&copy; 2024 LAMIMO. All rights reserved</p>
+                <p>
+                    <a href="#">Cookies Policy</a> |
+                    <a href="#">Privacy Policy</a> |
+                    <a href="#">Terms and Conditions</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="Cart.js"></script>
+</body>
+
+</html>

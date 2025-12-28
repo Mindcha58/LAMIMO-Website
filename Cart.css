@@ -1,0 +1,493 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #E6E6FA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo-and-menu {
+    display: flex;
+    align-items: center;
+    gap: 75px;
+    /* ระยะห่างระหว่างโลโก้และเมนู */
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.tablist {
+    display: flex;
+    gap: 10px;
+    /* เพิ่มระยะห่างระหว่างปุ่ม */
+}
+
+.tab {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6f63c6;
+    /* สีม่วงเข้มสำหรับตัวอักษร */
+    background-color: #E6E6FA;
+    /* พื้นหลังสีม่วงอ่อน */
+    border: 2px solid #d6cfff;
+    /* สีขอบเข้ากับโทนสีเว็บไซต์ */
+    border-radius: 25px;
+    /* รูปทรงโค้งมน */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    /* เพิ่มความนุ่มนวลเมื่อมีการเปลี่ยนแปลง */
+}
+
+.tab:hover {
+    background-color: #d6cfff;
+    /* สีม่วงเข้มขึ้นเมื่อโฮเวอร์ */
+    color: #fff;
+    /* ตัวอักษรสีขาวเมื่อโฮเวอร์ */
+    border-color: #6f63c6;
+    /* ขอบสีม่วงเข้ม */
+    transform: scale(1.05);
+    /* ขยายเล็กน้อย */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงา */
+}
+
+/* สไตล์เมื่อถูกเลือก */
+.tab:focus,
+.tab[aria-selected="true"] {
+    outline: none;
+    background-color: #6f63c6;
+    /* พื้นหลังม่วงเข้ม */
+    color: #fff;
+    /* ตัวอักษรสีขาว */
+    border-color: #6f63c6;
+    /* ขอบสีเดียวกัน */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* เงาเด่นชัดขึ้น */
+}
+
+/* เพิ่มการเข้าถึงด้วย keyboard */
+.tab:focus-visible {
+    outline: 2px dashed #6f63c6;
+    /* กรอบสีม่วงเมื่อใช้คีย์บอร์ด */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 10px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    height: 55px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+.icons {
+    display: flex;
+    gap: 15px;
+    /* ระยะห่างระหว่างไอคอน */
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 15px;
+    /* เพิ่มขนาด Padding เพื่อให้ดูสมดุล */
+    border-radius: 25px;
+    /* มุมมนแบบ Pill Shape */
+    transition: all 0.3s ease-in-out;
+    /* เพิ่ม Transition เพื่อให้การเปลี่ยนแปลงดูนุ่มนวล */
+    background-color: transparent;
+    /* เริ่มต้นด้วยพื้นหลังโปร่งใส */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* เพิ่มเงาเล็กน้อย */
+}
+
+.menu a:hover {
+    background-color: #d6cfff;
+    /* สีฟ้าสดใสเมื่อโฮเวอร์ */
+    color: #fff;
+    /* ข้อความสีขาวเมื่อโฮเวอร์ */
+    transform: scale(1.05);
+    /* ขยายเล็กน้อยเมื่อโฮเวอร์ */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงาให้เด่น */
+}
+
+.menu a.active {
+    background-color: #d6cfff;
+    /* สีพื้นหลังของลิงก์ที่ active */
+    color: black;
+    /* สีตัวอักษรดำ */
+    border: 2px solid #d6cfff;
+    /* ขอบล้อมรอบด้วยสีม่วงเข้ม */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงาให้โดดเด่น */
+    transition: all 0.3s ease-in-out;
+}
+
+.menu a.active:hover {
+    background-color: #6f63c6;
+    /* เปลี่ยนเป็นสีเข้มขึ้นเมื่อโฮเวอร์ */
+    transform: scale(1.08);
+    /* ขยายเพิ่มอีกเล็กน้อย */
+}
+
+/* เอฟเฟกต์แอนิเมชัน */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cart Section */
+.cart-section {
+    padding: 20px;
+}
+
+.cart-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* จัดข้อความให้อยู่ตรงกลางในทุกช่องของตาราง */
+.cart-table th,
+.cart-table td {
+    text-align: center; /* จัดให้อยู่กึ่งกลางในแนวนอน */
+    vertical-align: middle; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+    padding: 10px; /* เพิ่ม Padding เพื่อความสมดุล */
+}
+
+/* เพิ่มขนาดตัวอักษรให้หัวตาราง (Header) */
+.cart-table th {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #f5f5f5; /* สีพื้นหลังของหัวตาราง */
+    border-bottom: 2px solid #ddd; /* เส้นขอบล่าง */
+}
+
+/* ข้อความในช่องทั่วไป */
+.cart-table td {
+    font-size: 14px;
+    border-bottom: 1px solid #ddd; /* เส้นขอบล่างของแต่ละช่อง */
+}
+
+/* จัดเรียงข้อมูลในคอลัมน์ Product */
+.product-info {
+    display: flex;
+    align-items: center; /* จัดข้อความให้อยู่ในแนวเดียวกับภาพ */
+    gap: 15px; /* เพิ่มระยะห่างระหว่างภาพและข้อความ */
+}
+
+/* ปรับขนาดของภาพสินค้า */
+.product-image {
+    width: 60px; /* กำหนดความกว้างของภาพ */
+    height: 60px; /* กำหนดความสูงของภาพ */
+    border-radius: 5px; /* เพิ่มความโค้งมน */
+    object-fit: cover; /* จัดภาพให้พอดีกับกรอบ */
+}
+
+/* การจัดเรียงข้อความในส่วนของรายละเอียดสินค้า */
+.product-details {
+    text-align: left; /* จัดข้อความให้อยู่ชิดซ้าย */
+    font-size: 14px; /* ขนาดตัวอักษร */
+    line-height: 1.5; /* ระยะห่างระหว่างบรรทัด */
+    color: #333; /* สีของข้อความ */
+}
+
+.product-details p {
+    margin: 0; /* ลบระยะห่างบน-ล่างของข้อความ */
+}
+
+/* ปรับขนาดของช่อง Quantity */
+.quantity-input {
+    width: 50px; /* กำหนดความกว้าง */
+    height: 30px; /* กำหนดความสูง */
+    text-align: center; /* จัดตำแหน่งตัวเลขให้อยู่ตรงกลาง */
+    font-size: 16px; /* ขนาดตัวอักษร */
+    border: 1px solid #ddd; /* เส้นขอบ */
+    border-radius: 5px; /* ความโค้งมน */
+    margin: 0 5px; /* ระยะห่างระหว่างปุ่ม + และ - */
+}
+
+/* จัดตำแหน่งปุ่มและช่อง Quantity ให้อยู่ในแนวเดียวกัน */
+.quantity-control {
+    display: flex;
+    align-items: center; /* จัดแนวในแนวตั้งให้อยู่กึ่งกลาง */
+    justify-content: center; /* จัดตำแหน่งให้อยู่ตรงกลาง */
+    gap: 5px; /* ระยะห่างระหว่างปุ่มและช่อง */
+}
+
+/* ปุ่ม Decrement (สีแดง) */
+.quantity-btn.decrement {
+    background-color: #FF4C4C; /* สีแดง */
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-btn.decrement:hover {
+    background-color: #E63939; /* สีแดงเข้มเมื่อ Hover */
+}
+
+/* ปุ่ม Increment (สีเขียว) */
+.quantity-btn.increment {
+    background-color: #4CAF50; /* สีเขียว */
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quantity-btn.increment:hover {
+    background-color: #388E3C; /* สีเขียวเข้มเมื่อ Hover */
+}
+
+/* Checkbox Style */
+input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #4CAF50;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    margin: auto;
+    display: block;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white"><path d="M6.173 10.853L3.3 8.15a.5.5 0 1 0-.7.7l3.173 3.002a.5.5 0 0 0 .738-.057L13.448 3.864a.5.5 0 1 0-.824-.564L6.173 10.853z"/></svg>');
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.product-checkbox {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Summary Section */
+.summary-section {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.summary-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.checkout-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    text-decoration: none; /* ลบเส้นใต้ */
+    text-align: center; /* สำหรับจัดข้อความให้ตรงกลางในกรณีของ <a> */
+    display: inline-block; /* ให้ <a> แสดงเหมือนปุ่ม */
+}
+
+.checkout-btn:hover {
+    background-color: #333; /* เปลี่ยนสีเมื่อ hover */
+}
+
+
+/* Footer */
+footer {
+    width: 100%;
+    padding: 20px 0;
+    background-color: #E6E6FA;
+    margin-top: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.footer-links div {
+    flex: 1;
+}
+
+.footer-links h4 {
+    font-weight: bold;
+    margin-bottom: 15px; /* เพิ่มระยะห่างระหว่างหัวข้อกับลิงก์ */
+    font-size: 20px; /* เพิ่มขนาดฟอนต์เล็กน้อย */
+    color: black;
+}
+
+.footer-links a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 8px;
+    transition: color 0.3s, font-weight 0.3s;
+}
+
+.footer-links a:hover {
+    color: black;
+    font-weight: bold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px; /* เพิ่มช่องว่างระหว่างไอคอน */
+    margin-top: 5px; /* เพิ่มระยะห่างจากส่วนบน */
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.social-icons img {
+    width: 40px; /* ลดขนาดไอคอนภายในเพื่อความสมดุล */
+    height: 40px;
+}
+
+.social-icons a:hover {
+    background-color: #e6e6fa; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    transform: scale(1.1); /* ขยายปุ่มเล็กน้อยเมื่อ hover */
+}
+
+footer hr {
+    border: none;
+    border-top: 1px solid #777;
+    margin: 15px auto;
+    width: 100%;
+}
+
+.footer-policies {
+    text-align: center;
+}
+
+.footer-policies p {
+    margin: 5px 0;
+}
+
+.footer-policies p a {
+    color: black;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-policies p a:hover {
+    color: black;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    .content-wrapper,
+    header,
+    footer {
+        width: 100%;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+}

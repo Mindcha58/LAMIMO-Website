@@ -1,0 +1,360 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #E6E6FA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo-and-menu {
+    display: flex;
+    align-items: center;
+    gap: 75px;
+    /* ระยะห่างระหว่างโลโก้และเมนู */
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.tablist {
+    display: flex;
+    gap: 10px;
+    /* เพิ่มระยะห่างระหว่างปุ่ม */
+}
+
+.tab {
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #6f63c6;
+    /* สีม่วงเข้มสำหรับตัวอักษร */
+    background-color: #E6E6FA;
+    /* พื้นหลังสีม่วงอ่อน */
+    border: 2px solid #d6cfff;
+    /* สีขอบเข้ากับโทนสีเว็บไซต์ */
+    border-radius: 25px;
+    /* รูปทรงโค้งมน */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    /* เพิ่มความนุ่มนวลเมื่อมีการเปลี่ยนแปลง */
+}
+
+.tab:hover {
+    background-color: #d6cfff;
+    /* สีม่วงเข้มขึ้นเมื่อโฮเวอร์ */
+    color: #fff;
+    /* ตัวอักษรสีขาวเมื่อโฮเวอร์ */
+    border-color: #6f63c6;
+    /* ขอบสีม่วงเข้ม */
+    transform: scale(1.05);
+    /* ขยายเล็กน้อย */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงา */
+}
+
+/* สไตล์เมื่อถูกเลือก */
+.tab:focus,
+.tab[aria-selected="true"] {
+    outline: none;
+    background-color: #6f63c6;
+    /* พื้นหลังม่วงเข้ม */
+    color: #fff;
+    /* ตัวอักษรสีขาว */
+    border-color: #6f63c6;
+    /* ขอบสีเดียวกัน */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* เงาเด่นชัดขึ้น */
+}
+
+/* เพิ่มการเข้าถึงด้วย keyboard */
+.tab:focus-visible {
+    outline: 2px dashed #6f63c6;
+    /* กรอบสีม่วงเมื่อใช้คีย์บอร์ด */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    padding: 10px 10px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    height: 55px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+.icons {
+    display: flex;
+    gap: 15px;
+    /* ระยะห่างระหว่างไอคอน */
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 8px 15px;
+    /* เพิ่มขนาด Padding เพื่อให้ดูสมดุล */
+    border-radius: 25px;
+    /* มุมมนแบบ Pill Shape */
+    transition: all 0.3s ease-in-out;
+    /* เพิ่ม Transition เพื่อให้การเปลี่ยนแปลงดูนุ่มนวล */
+    background-color: transparent;
+    /* เริ่มต้นด้วยพื้นหลังโปร่งใส */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* เพิ่มเงาเล็กน้อย */
+}
+
+.menu a:hover {
+    background-color: #d6cfff;
+    /* สีฟ้าสดใสเมื่อโฮเวอร์ */
+    color: #fff;
+    /* ข้อความสีขาวเมื่อโฮเวอร์ */
+    transform: scale(1.05);
+    /* ขยายเล็กน้อยเมื่อโฮเวอร์ */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงาให้เด่น */
+}
+
+.menu a.active {
+    background-color: #d6cfff;
+    /* สีพื้นหลังของลิงก์ที่ active */
+    color: black;
+    /* สีตัวอักษรดำ */
+    border: 2px solid #d6cfff;
+    /* ขอบล้อมรอบด้วยสีม่วงเข้ม */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* เพิ่มเงาให้โดดเด่น */
+    transition: all 0.3s ease-in-out;
+}
+
+.menu a.active:hover {
+    background-color: #6f63c6;
+    /* เปลี่ยนเป็นสีเข้มขึ้นเมื่อโฮเวอร์ */
+    transform: scale(1.08);
+    /* ขยายเพิ่มอีกเล็กน้อย */
+}
+
+/* เอฟเฟกต์แอนิเมชัน */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ส่วน Main Content */
+.main-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.confirmation .icon {
+    font-size: 80px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.confirmation h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.confirmation p {
+    color: #888;
+}
+
+/* ตารางสรุปคำสั่งซื้อ */
+.order-summary {
+    margin: 20px auto;
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.order-summary th,
+.order-summary td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.order-summary th {
+    background-color: #000;
+    color: #fff;
+}
+
+.order-summary .total td {
+    font-weight: bold;
+}
+
+/* ปุ่ม Return to Shop */
+.return-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    width: 100%;
+    padding: 20px 0;
+    background-color: #E6E6FA;
+    margin-top: 20px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.footer-links div {
+    flex: 1;
+}
+
+.footer-links h4 {
+    font-weight: bold;
+    margin-bottom: 15px;
+    /* เพิ่มระยะห่างระหว่างหัวข้อกับลิงก์ */
+    font-size: 20px;
+    /* เพิ่มขนาดฟอนต์เล็กน้อย */
+    color: black;
+}
+
+.footer-links a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 8px;
+    transition: color 0.3s, font-weight 0.3s;
+}
+
+.footer-links a:hover {
+    color: black;
+    font-weight: bold;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+    /* เพิ่มช่องว่างระหว่างไอคอน */
+    margin-top: 5px;
+    /* เพิ่มระยะห่างจากส่วนบน */
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.social-icons img {
+    width: 40px;
+    /* ลดขนาดไอคอนภายในเพื่อความสมดุล */
+    height: 40px;
+}
+
+.social-icons a:hover {
+    background-color: #e6e6fa;
+    /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    transform: scale(1.1);
+    /* ขยายปุ่มเล็กน้อยเมื่อ hover */
+}
+
+footer hr {
+    border: none;
+    border-top: 1px solid #777;
+    margin: 15px auto;
+    width: 100%;
+}
+
+.footer-policies {
+    text-align: center;
+}
+
+.footer-policies p {
+    margin: 5px 0;
+}
+
+.footer-policies p a {
+    color: black;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.footer-policies p a:hover {
+    color: black;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+
+    .content-wrapper,
+    header,
+    footer {
+        width: 100%;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+}

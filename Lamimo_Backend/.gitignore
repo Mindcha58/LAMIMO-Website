@@ -1,0 +1,32 @@
+### ===== Java / Maven / Spring Boot =====
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+### ===== IntelliJ IDEA =====
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+### ===== VS Code =====
+.vscode/
+
+### ===== OS junk =====
+.DS_Store
+Thumbs.db
+
+### ===== Env / Secrets =====
+.env
+*.env
+application-local.yml
+application-local.properties
+
+### ===== Optional: build outputs (frontend tools ถ้ามีในอนาคต) =====
+node_modules/
+dist/
+build/

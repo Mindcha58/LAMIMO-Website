@@ -96,3 +96,116 @@ document.querySelectorAll('.dropdown').forEach(function (dropdown) {
     });
 });
 
+// ====================== Backend Integration ======================
+const API_BASE = "http://localhost:8080";
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector('[data-action="add-cart"]')?.addEventListener("click", addToCart);
+    document.querySelector('[data-action="add-wishlist"]')?.addEventListener("click", addToWishlist);
+});
+
+async function addToCart() {
+    const meta = getProductMeta();
+    const size = getSelectedSize();
+    const qty = getQty();
+
+    if (!meta.productId) return alert("ยังไม่ได้ใส่ data-product-id");
+    if (!size) return alert("กรุณาเลือกไซส์ก่อน");
+
+    const payload = { ...meta, size, qty };
+
+    try {
+        const res = await fetch(`${API_BASE}/api/cart/items`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Add to cart failed");
+        alert("Add to cart");
+    } catch (e) {
+        console.error(e);
+        alert("เรียก Backend ไม่สำเร็จ (เช็คว่า backend รันอยู่ + CORS)");
+    }
+}
+
+async function addToWishlist() {
+    const meta = getProductMeta();
+    const size = getSelectedSize();
+
+    if (!meta.productId) return alert("ยังไม่ได้ใส่ data-product-id");
+
+    const hasSizeOptions = document.querySelectorAll(".size-option").length > 0;
+    if (hasSizeOptions && !size) return alert("กรุณาเลือกไซส์ก่อน");
+
+    const payload = { ...meta, size: size || "" };
+
+    try {
+        const res = await fetch(`${API_BASE}/api/wishlist/items`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error("Add to wishlist failed");
+
+        const data = await res.json().catch(() => ({}));
+        if (data.message === "already_in_wishlist") return alert("มีสินค้าใน Wish-list แล้ว");
+        alert("Added to wish-list");
+    } catch (e) {
+        console.error(e);
+        alert("เรียก Backend ไม่สำเร็จ (เช็คว่า backend รันอยู่ + CORS)");
+    }
+}
+
+function getProductMeta() {
+    // ถ้ามี data-* ที่ .product-info จะใช้ก่อน
+    const info = document.querySelector(".product-info[data-product-id]");
+    let productId = null;
+    let name = "";
+    let price = 0;
+    let image = "";
+
+    if (info?.dataset) {
+        productId = parseInt(info.dataset.productId || "0", 10) || null;
+        name = info.dataset.productName || "";
+        price = parseFloat(info.dataset.productPrice || "0") || 0;
+        image = info.dataset.productImage || "";
+    }
+
+    // fallback: อ่านจากหน้า (กรณีคุณยังไม่ได้ใส่ data-name/price/image)
+    if (!name) name = document.querySelector(".Name h2")?.textContent?.trim() || "";
+    if (!price) {
+        const priceText = document.querySelector(".Name p")?.textContent?.trim() || "0";
+        price = parseFloat(priceText.replace(/[^\d.]/g, "")) || 0;
+    }
+
+    // ใช้รูปหลักที่กำลังแสดงอยู่จริง
+    const mainImg = document.getElementById("mainImage");
+    if (mainImg) image = mainImg.getAttribute("src") || image;
+
+    image = normalizeToRelativePath(image);
+
+    return { productId, name, price, image };
+}
+
+function getSelectedSize() {
+    const selected = document.querySelector('.size-option[aria-checked="true"]');
+    if (!selected) return null;
+    return selected.getAttribute("data-value") || selected.textContent.trim();
+}
+
+function getQty() {
+    return parseInt(document.getElementById("quantity")?.value || "1", 10) || 1;
+}
+
+function normalizeToRelativePath(path) {
+    if (!path) return "";
+    try {
+        const u = new URL(path, window.location.href);
+        return u.pathname.startsWith("/") ? u.pathname.slice(1) : u.pathname;
+    } catch {
+        return path; // เป็น relative อยู่แล้ว
+    }
+}
+
+
+

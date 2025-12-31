@@ -53,7 +53,7 @@
                         <a href="Blouses.html">Blouses</a>
                     </div>
                 </div>
-    
+
                 <div class="dropdown">
                     <a href="#">Shoes</a>
                     <div class="dropdown-content">
@@ -61,7 +61,7 @@
                         <a href="Canvas.html">canvas </a>
                     </div>
                 </div>
-    
+
                 <div class="dropdown">
                     <a href="#">Accessories</a>
                     <div class="dropdown-content">
@@ -88,25 +88,29 @@
                 <!-- Product Details -->
                 <div class="product-images">
                     <div class="thumbnail-images">
-                        <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-feature-1.jpg"
-                            alt="Thumbnail 1" onclick="changeMainImage(this)">
-                        <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-gallery1-1.jpg"
-                            alt="Thumbnail 2" onclick="changeMainImage(this)">
+                        <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-feature-1.jpg" alt="Thumbnail 1"
+                            onclick="changeMainImage(this)">
+                        <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-gallery1-1.jpg" alt="Thumbnail 2"
+                            onclick="changeMainImage(this)">
                         <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-gallery2-1-900x1350.jpg"
                             alt="Thumbnail 3" onclick="changeMainImage(this)">
-                        <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-gallery3-1.jpg"
-                            alt="Thumbnail 4" onclick="changeMainImage(this)">
+                        <img src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-gallery3-1.jpg" alt="Thumbnail 4"
+                            onclick="changeMainImage(this)">
                     </div>
 
                     <!-- Main Image -->
                     <div class="main-image">
-                        <img id="mainImage"
-                            src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-feature-1.jpg"
+                        <img id="mainImage" src="image/Women/Blouses/Blouses1/VWRBLLS0585161002-feature-1.jpg"
                             alt="Main Product Image">
                     </div>
 
                     <!-- Product Info -->
-                    <div class="product-info">
+                    <div class="product-info"
+                        data-product-id="4001"
+                        data-product-name="Polka Dot Camisole"
+                        data-product-price="600"
+                        data-product-image="image/Women/Blouses/Blouses1/VWRBLLS0585161002-feature-1.jpg">
+
                         <div class="Name">
                             <h2>Polka Dot Camisole</h2>
                             <p>600฿</p>
@@ -146,11 +150,11 @@
 
                         <div class="WA">
                             <div class="wish">
-                                <button class="wish-button">ADD TO WISH-LIST</button>
+                                <button class="wish-button" data-action="add-wishlist" >ADD TO WISH-LIST</button>
                             </div>
 
                             <div class="cart">
-                                <button class="cart-button">ADD TO CART</button>
+                                <button class="cart-button" data-action="add-cart">ADD TO CART</button>
                             </div>
                         </div>
                     </div>

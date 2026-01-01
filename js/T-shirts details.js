@@ -149,7 +149,7 @@ async function addToWishlist() {
 
         const data = await res.json().catch(() => ({}));
         if (data.message === "already_in_wishlist") return alert("มีสินค้าใน Wish-list แล้ว");
-        alert("Added to wish-list");
+        alert("Add to wish-list");
     } catch (e) {
         console.error(e);
         alert("เรียก Backend ไม่สำเร็จ (เช็คว่า backend รันอยู่ + CORS)");

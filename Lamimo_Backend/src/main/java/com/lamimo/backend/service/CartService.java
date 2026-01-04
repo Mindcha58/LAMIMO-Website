@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@jakarta.transaction.Transactional // เพิ่มเพื่อให้ delete/clear ทำงานได้
 public class CartService {
 
     private final CartItemRepository repo;
@@ -16,22 +17,23 @@ public class CartService {
         this.repo = repo;
     }
 
-    public List<CartItem> list() {
-        return repo.findAll();
+    // แก้ไข: ดึงเฉพาะของ User คนนั้น
+    public List<CartItem> list(Long userId) {
+        return repo.findAllByUserId(userId);
     }
 
-    // เพิ่มสินค้า: ถ้ามี productId+size เดิม ให้รวม qty
-    public CartItem add(AddCartRequest req) {
+    // แก้ไข: เพิ่มสินค้าโดยผูกกับ userId
+    public CartItem add(Long userId, AddCartRequest req) {
         if (req == null || req.productId == null) {
             throw new IllegalArgumentException("productId is required");
         }
         String size = (req.size == null) ? "" : req.size;
         int qty = (req.qty == null || req.qty < 1) ? 1 : req.qty;
 
-        return repo.findByProductIdAndSize(req.productId, size)
+        // ค้นหาโดยใช้ userId + productId + size เพื่อไม่ให้ซ้ำคนอื่น
+        return repo.findByUserIdAndProductIdAndSize(userId, req.productId, size)
                 .map(existing -> {
                     existing.setQty(existing.getQty() + qty);
-                    // อัปเดตข้อมูลล่าสุด (เผื่อชื่อ/ราคาเปลี่ยน)
                     if (req.name != null) existing.setName(req.name);
                     if (req.price != null) existing.setPrice(req.price);
                     if (req.image != null) existing.setImage(req.image);
@@ -39,6 +41,7 @@ public class CartService {
                 })
                 .orElseGet(() -> {
                     CartItem it = new CartItem();
+                    it.setUserId(userId); // สำคัญ: เซตเจ้าของตะกร้า
                     it.setProductId(req.productId);
                     it.setName(req.name == null ? "" : req.name);
                     it.setPrice(req.price == null ? 0.0 : req.price);
@@ -49,23 +52,28 @@ public class CartService {
                 });
     }
 
-    public CartItem updateQty(Long itemId, int qty) {
+    // แก้ไข: อัปเดตจำนวน (เช็คความเป็นเจ้าของ)
+    public CartItem updateQty(Long userId, Long itemId, int qty) {
         if (qty < 1) qty = 1;
-        CartItem it = repo.findById(itemId)
+        CartItem it = repo.findByIdAndUserId(itemId, userId)
                 .orElseThrow(() -> new IllegalArgumentException("not_found"));
         it.setQty(qty);
         return repo.save(it);
     }
 
-    public void delete(Long itemId) {
-        repo.deleteById(itemId);
+    // แก้ไข: ลบเฉพาะของตนเอง
+    public void delete(Long userId, Long itemId) {
+        repo.deleteByIdAndUserId(itemId, userId);
     }
 
-    public void clear() {
-        repo.deleteAll();
+    // แก้ไข: ล้างตะกร้าเฉพาะของตนเอง
+    public void clear(Long userId) {
+        repo.deleteAllByUserId(userId);
     }
 
-    public int totalQty() {
-        return repo.findAll().stream().mapToInt(CartItem::getQty).sum();
+    // แก้ไข: นับจำนวนรวมเฉพาะของ User
+    public int totalQty(Long userId) {
+        return repo.findAllByUserId(userId).stream().mapToInt(CartItem::getQty).sum();
     }
 }
+

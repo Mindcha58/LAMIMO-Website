@@ -3,7 +3,10 @@ package com.lamimo.backend.controller;
 import com.lamimo.backend.controller.dto.AddWishlistRequest;
 import com.lamimo.backend.entity.WishlistItem;
 import com.lamimo.backend.service.WishlistService;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -18,29 +21,39 @@ public class WishlistController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<WishlistItem> getWishlist() {
-        return service.list();
+    @PostMapping("/items")
+    public Map<String, String> addToWishlist(@RequestBody AddWishlistRequest req,
+            Authentication auth) {
+        if (auth == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+
+        String email = auth.getName();
+        String result = service.add(req, email);
+        return Map.of("message", result);
     }
 
-    @PostMapping("/items")
-    public Map<String, Object> addToWishlist(@RequestBody AddWishlistRequest req) {
-        String msg = service.add(req);
-        return Map.of(
-                "message", msg,
-                "wishlistCount", service.count()
-        );
+    @GetMapping
+    public List<WishlistItem> list(Authentication auth) {
+        if (auth == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+        return service.list(auth.getName());
     }
 
     @DeleteMapping("/items/{itemId}")
-    public Map<String, Object> remove(@PathVariable Long itemId) {
-        service.delete(itemId);
-        return Map.of("message", "deleted");
+    public void delete(@PathVariable Long itemId, Authentication auth) {
+        if (auth == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+        service.delete(itemId, auth.getName());
     }
 
     @DeleteMapping
-    public Map<String, Object> clear() {
-        service.clear();
-        return Map.of("message", "cleared");
+    public void clear(Authentication auth) {
+        if (auth == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+        service.clear(auth.getName());
     }
 }

@@ -1,34 +1,38 @@
 package com.lamimo.backend.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(
     name = "cart_items",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "size"})
+    uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "product_id", "size" })
 )
 public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemId;
+    private Long id;
 
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
     private String name;
-
     private Double price;
-
     private String image;
-
     private String size;
 
     @Column(nullable = false)
     private Integer qty;
 
     private LocalDateTime createdAt;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @PrePersist
     void onCreate() {
@@ -37,9 +41,18 @@ public class CartItem {
         if (size == null) size = "";
     }
 
-    // ===== getters/setters =====
-    public Long getItemId() { return itemId; }
-    public void setItemId(Long itemId) { this.itemId = itemId; }
+    @JsonProperty("itemId")
+    public Long getItemId() {
+        return id;
+    }
+
+    // ถ้าไม่อยากให้ส่ง "id" ออกไปซ้ำด้วย ให้ ignore getId()
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) { this.id = id; }
 
     public Integer getProductId() { return productId; }
     public void setProductId(Integer productId) { this.productId = productId; }
@@ -61,5 +74,7 @@ public class CartItem {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-}
 
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+}

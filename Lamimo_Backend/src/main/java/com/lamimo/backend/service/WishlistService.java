@@ -3,7 +3,9 @@ package com.lamimo.backend.service;
 import com.lamimo.backend.controller.dto.AddWishlistRequest;
 import com.lamimo.backend.entity.WishlistItem;
 import com.lamimo.backend.repository.WishlistItemRepository;
+import com.lamimo.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,26 +13,36 @@ import java.util.List;
 public class WishlistService {
 
     private final WishlistItemRepository repo;
+    private final UserRepository userRepo;
 
-    public WishlistService(WishlistItemRepository repo) {
+    public WishlistService(WishlistItemRepository repo, UserRepository userRepo) {
         this.repo = repo;
+        this.userRepo = userRepo;
     }
 
-    public List<WishlistItem> list() {
-        return repo.findAll();
+    @Transactional(readOnly = true)
+    public List<WishlistItem> list(String email) {
+        var user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return repo.findAllByUserId(user.getId());
     }
 
-    // เพิ่ม wishlist: กันซ้ำ productId+size
-    public String add(AddWishlistRequest req) {
+    @Transactional
+    public String add(AddWishlistRequest req, String email) {
         if (req == null || req.productId == null) {
             throw new IllegalArgumentException("productId is required");
         }
+
+        var user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         String size = (req.size == null) ? "" : req.size;
 
-        boolean exists = repo.findByProductIdAndSize(req.productId, size).isPresent();
+        boolean exists = repo.findByUserIdAndProductIdAndSize(user.getId(), req.productId, size).isPresent();
         if (exists) return "already_in_wishlist";
 
         WishlistItem it = new WishlistItem();
+        it.setUserId(user.getId());
         it.setProductId(req.productId);
         it.setName(req.name == null ? "" : req.name);
         it.setPrice(req.price == null ? 0.0 : req.price);
@@ -41,15 +53,24 @@ public class WishlistService {
         return "added";
     }
 
-    public void delete(Long itemId) {
-        repo.deleteById(itemId);
+    @Transactional
+    public void delete(Long itemId, String email) {
+        var user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        repo.deleteByIdAndUserId(itemId, user.getId());
     }
 
-    public void clear() {
-        repo.deleteAll();
+    @Transactional
+    public void clear(String email) {
+        var user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        repo.deleteAllByUserId(user.getId());
     }
 
-    public long count() {
-        return repo.count();
+    @Transactional(readOnly = true)
+    public long count(String email) {
+        var user = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return repo.countByUserId(user.getId());
     }
 }

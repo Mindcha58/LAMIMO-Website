@@ -104,16 +104,33 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCart();
 });
 
+function getToken() {
+    return localStorage.getItem("token") || sessionStorage.getItem("token");
+}
+
+function authHeaders(extra = {}) {
+    const token = getToken();
+    return {
+        ...extra,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+}
+
 async function loadCart() {
     try {
-        const res = await fetch(CART_API);
-        if (!res.ok) throw new Error("GET /api/cart failed");
+        const res = await fetch(CART_API, { headers: authHeaders() });
 
-        const items = await res.json(); // [{itemId, productId, name, price, image, size, qty}]
+        if (res.status === 401 || res.status === 403) {
+            alert("กรุณา Login ก่อนใช้งานตะกร้า");
+            window.location.href = "Login.html";
+            return;
+        }
+
+        if (!res.ok) throw new Error("GET /api/cart failed");
+        const items = await res.json();
         renderCart(items);
     } catch (err) {
         console.error(err);
-        alert("โหลดตะกร้าไม่สำเร็จ (เช็คว่า Backend รันอยู่ และ CORS ถูกต้อง)");
     }
 }
 
@@ -216,7 +233,7 @@ function bindCartEvents() {
         });
     });
 
-    // ถ้าคุณอยากให้ subtotal คิดจาก checkbox (เลือก/ไม่เลือก) ให้เปิดใช้งานส่วนนี้
+    //checkbox (เลือก/ไม่เลือก)
     document.querySelectorAll(".product-checkbox").forEach((cb) => {
         cb.addEventListener("change", recalcTotalsByChecked);
     });
@@ -225,7 +242,7 @@ function bindCartEvents() {
 async function patchQty(itemId, qty) {
     const res = await fetch(`${CART_API}/items/${itemId}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ qty }),
     });
 
@@ -263,6 +280,7 @@ function escapeHtml(s) {
 async function deleteItem(itemId) {
     const res = await fetch(`${CART_API}/items/${itemId}`, {
         method: "DELETE",
+        headers: { ...authHeaders() }
     });
 
     if (!res.ok) {

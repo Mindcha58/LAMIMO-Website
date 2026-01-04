@@ -104,7 +104,49 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('[data-action="add-wishlist"]')?.addEventListener("click", addToWishlist);
 });
 
+function getToken() {
+    // รองรับทั้ง keep signed in (localStorage) และไม่ keep (sessionStorage)
+    return localStorage.getItem("token") || sessionStorage.getItem("token");
+}
+
+function authHeaders(extra = {}) {
+    const token = getToken();
+    return {
+        ...extra,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    };
+}
+
+function requireLogin() {
+    const token = getToken();
+    if (!token) {
+        alert("Session หมดอายุ กรุณา Login ใหม่");
+        window.location.href = "Login.html";
+        throw new Error("NO_TOKEN");
+    }
+    return token;
+}
+
+async function handleAuthError(res) {
+    if (res.status === 401 || res.status === 403) {
+        sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
+        alert("Session หมดอายุ กรุณา Login ใหม่");
+        window.location.href = "Login.html";
+        return true;
+    }
+    return false;
+}
 async function addToCart() {
+    // 1) เช็ค token ก่อนยิง API
+    const token = getToken();
+    if (!token) {
+        alert("กรุณา Login ก่อน");
+        window.location.href = "Login.html";
+        return;
+    }
+
+    // 2) เก็บข้อมูลสินค้า
     const meta = getProductMeta();
     const size = getSelectedSize();
     const qty = getQty();
@@ -117,10 +159,22 @@ async function addToCart() {
     try {
         const res = await fetch(`${API_BASE}/api/cart/items`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: authHeaders({ "Content-Type": "application/json" }),
             body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error("Add to cart failed");
+
+        // ถ้า token หมดอายุ/ไม่ผ่าน ให้เด้งไป login
+        if (res.status === 401 || res.status === 403) {
+            alert("Session หมดอายุ กรุณา Login ใหม่");
+            window.location.href = "Login.html";
+            return;
+        }
+
+        if (!res.ok) {
+            const txt = await res.text();
+            throw new Error(txt || "Add to cart failed");
+        }
+
         alert("Add to cart");
     } catch (e) {
         console.error(e);
@@ -129,11 +183,21 @@ async function addToCart() {
 }
 
 async function addToWishlist() {
+    // 1) ต้อง Login ก่อน (กัน user_id null)
+    const token = getToken();
+    if (!token) {
+        alert("กรุณา Login ก่อน");
+        window.location.href = "Login.html";
+        return;
+    }
+
+    // 2) อ่านข้อมูลสินค้า + ไซส์
     const meta = getProductMeta();
     const size = getSelectedSize();
 
     if (!meta.productId) return alert("ยังไม่ได้ใส่ data-product-id");
 
+    // ถ้าหน้านี้มีตัวเลือกไซส์ ต้องเลือกก่อน แต่ถ้าไม่มีไซส์ ให้ส่งเป็น ""
     const hasSizeOptions = document.querySelectorAll(".size-option").length > 0;
     if (hasSizeOptions && !size) return alert("กรุณาเลือกไซส์ก่อน");
 
@@ -142,13 +206,34 @@ async function addToWishlist() {
     try {
         const res = await fetch(`${API_BASE}/api/wishlist/items`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: authHeaders({ "Content-Type": "application/json" }),
             body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error("Add to wishlist failed");
 
+        // 3) ถ้า token หมดอายุ/ไม่ผ่านสิทธิ์
+        if (res.status === 401 || res.status === 403) {
+            alert("Session หมดอายุ กรุณา Login ใหม่");
+            localStorage.removeItem("token");
+            sessionStorage.removeItem("token");
+            window.location.href = "Login.html";
+            return;
+        }
+
+        // 4) อ่านผลลัพธ์ (รองรับกรณี backend ส่ง JSON)
         const data = await res.json().catch(() => ({}));
-        if (data.message === "already_in_wishlist") return alert("มีสินค้าใน Wish-list แล้ว");
+
+        if (!res.ok) {
+            // ถ้าอยากโชว์ข้อความจาก backend
+            const msg = data.message || "Add to wish-list failed";
+            throw new Error(msg);
+        }
+
+        // 5) กันซ้ำ (ตาม backend ของคุณที่ส่ง already_in_wishlist)
+        if (data.message === "already_in_wishlist") {
+            alert("มีสินค้าใน Wish-list แล้ว");
+            return;
+        }
+
         alert("Add to wish-list");
     } catch (e) {
         console.error(e);
@@ -171,7 +256,6 @@ function getProductMeta() {
         image = info.dataset.productImage || "";
     }
 
-    // fallback: อ่านจากหน้า (กรณีคุณยังไม่ได้ใส่ data-name/price/image)
     if (!name) name = document.querySelector(".Name h2")?.textContent?.trim() || "";
     if (!price) {
         const priceText = document.querySelector(".Name p")?.textContent?.trim() || "0";

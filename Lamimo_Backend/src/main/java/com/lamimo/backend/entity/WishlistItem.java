@@ -1,31 +1,34 @@
 package com.lamimo.backend.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(
     name = "wishlist_items",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "size"})
+    uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "product_id", "size" })
 )
 public class WishlistItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long itemId;
+    private Long id;
 
     @Column(name = "product_id", nullable = false)
     private Integer productId;
 
     private String name;
-
     private Double price;
-
     private String image;
 
-    private String size;
+    @Column(nullable = false)
+    private String size = "";
 
     private LocalDateTime createdAt;
+
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
     @PrePersist
     void onCreate() {
@@ -34,8 +37,8 @@ public class WishlistItem {
     }
 
     // ===== getters/setters =====
-    public Long getItemId() { return itemId; }
-    public void setItemId(Long itemId) { this.itemId = itemId; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public Integer getProductId() { return productId; }
     public void setProductId(Integer productId) { this.productId = productId; }
@@ -54,5 +57,7 @@ public class WishlistItem {
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-}
 
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+}

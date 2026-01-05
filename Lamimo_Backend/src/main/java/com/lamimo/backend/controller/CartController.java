@@ -69,9 +69,4 @@ public class CartController {
         return Map.of("message", "deleted");
     }
 
-    @DeleteMapping
-    public Map<String, Object> clear(@AuthenticationPrincipal UserPrincipal principal) {
-        service.clear(principal.getId());
-        return Map.of("message", "cleared");
-    }
 }
